@@ -1,130 +1,179 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Karim & Mai Engagement</title>
+
 <style>
-    body {
-        margin: 0;
-        font-family: 'Segoe UI', sans-serif;
-        background: #fff0f5;
-        overflow-x: hidden;
-        text-align: center;
-    }
+body {
+    margin: 0;
+    font-family: 'Georgia', serif;
+    background: linear-gradient(to top, #fff0f5, #ffe4ec);
+    text-align: center;
+    overflow-x: hidden;
+}
 
-    /* Floating Hearts */
-    .heart {
-        position: fixed;
-        width: 20px;
-        height: 20px;
-        background: red;
-        transform: rotate(45deg);
-        animation: float 8s linear infinite;
-    }
+/* Counters */
+.counter {
+    position: fixed;
+    top: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #b30059;
+}
+#yesCount { left: 20px; }
+#noCount { right: 20px; }
 
-    .heart::before,
-    .heart::after {
-        content: "";
-        position: absolute;
-        width: 20px;
-        height: 20px;
-        background: red;
-        border-radius: 50%;
-    }
+/* Countdown */
+#countdown {
+    margin-top: 30px;
+    font-size: 22px;
+    color: #b30059;
+    font-weight: bold;
+}
 
-    .heart::before {
-        top: -10px;
-        left: 0;
-    }
+/* Envelope */
+.envelope {
+    position: relative;
+    width: 320px;
+    height: 200px;
+    background: #fff;
+    margin: 120px auto;
+    border-radius: 10px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    cursor: pointer;
+    overflow: hidden;
+}
 
-    .heart::after {
-        left: -10px;
-        top: 0;
-    }
+.flap {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #ffb6c1;
+    clip-path: polygon(0 0, 100% 0, 50% 50%);
+    transform-origin: top;
+    transition: 1s;
+}
 
-    @keyframes float {
-        0% {transform: translateY(100vh) rotate(45deg);}
-        100% {transform: translateY(-10vh) rotate(45deg);}
-    }
+.envelope.open .flap {
+    transform: rotateX(180deg);
+}
 
-    /* Counters */
-    .counter {
-        position: fixed;
-        top: 10px;
-        font-size: 20px;
-        font-weight: bold;
-        color: #d63384;
-    }
+/* Letter inside */
+.letter {
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    background: #fff;
+    top: 5%;
+    left: 5%;
+    border-radius: 10px;
+    transform: translateY(100%);
+    transition: 1s;
+}
 
-    #yesCount { left: 20px; }
-    #noCount { right: 20px; }
+.envelope.open .letter {
+    transform: translateY(0);
+}
 
-    /* Letter */
-    .letter {
-        margin-top: 150px;
-        width: 200px;
-        height: 120px;
-        background: #fff;
-        border: 2px solid #d63384;
-        cursor: pointer;
-        position: relative;
-        margin-left: auto;
-        margin-right: auto;
-        border-radius: 10px;
-    }
+/* Card */
+.card {
+    display: none;
+    margin-top: 20px;
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    width: 85%;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    animation: fadeIn 1s ease;
+}
 
-    .letter::before {
-        content: "💌 Click to Open";
-        position: absolute;
-        width: 100%;
-        top: 40%;
-        left: 0;
-        font-weight: bold;
-        color: #d63384;
-    }
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(30px);}
+    to {opacity: 1; transform: translateY(0);}
+}
 
-    /* Invitation Card */
-    .card {
-        display: none;
-        margin-top: 30px;
-        background: white;
-        padding: 20px;
-        border-radius: 15px;
-        width: 80%;
-        max-width: 400px;
-        margin-left: auto;
-        margin-right: auto;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        animation: fadeIn 1s ease;
-    }
+/* Romantic text */
+h2 {
+    background: linear-gradient(45deg, #ff4d6d, #c9184a);
+    -webkit-background-clip: text;
+    color: transparent;
+}
 
-    @keyframes fadeIn {
-        from {opacity: 0; transform: scale(0.8);}
-        to {opacity: 1; transform: scale(1);}
-    }
+p {
+    color: #5a0033;
+    font-size: 18px;
+}
 
-    button {
-        margin: 10px;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 20px;
-        cursor: pointer;
-        font-size: 16px;
-    }
+/* Buttons */
+button {
+    margin: 10px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
 
-    .yes { background: #28a745; color: white; }
-    .no { background: #dc3545; color: white; }
+.yes {
+    background: linear-gradient(45deg, #28a745, #5cd65c);
+    color: white;
+}
 
-    a {
-        display: inline-block;
-        margin-top: 10px;
-        text-decoration: none;
-        color: white;
-        background: #007bff;
-        padding: 10px 15px;
-        border-radius: 20px;
-    }
+.no {
+    background: linear-gradient(45deg, #dc3545, #ff6b6b);
+    color: white;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+/* Location button */
+a {
+    display: inline-block;
+    margin-top: 15px;
+    text-decoration: none;
+    background: linear-gradient(45deg, #007bff, #66b3ff);
+    color: white;
+    padding: 10px 18px;
+    border-radius: 20px;
+}
+
+/* Floating hearts */
+.heart {
+    position: fixed;
+    bottom: -20px;
+    width: 15px;
+    height: 15px;
+    background: pink;
+    transform: rotate(45deg);
+    animation: floatUp 6s linear infinite;
+}
+
+.heart::before,
+.heart::after {
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: pink;
+    border-radius: 50%;
+}
+
+.heart::before { top: -7px; left: 0; }
+.heart::after { left: -7px; top: 0; }
+
+@keyframes floatUp {
+    0% {transform: translateY(0) rotate(45deg); opacity: 1;}
+    100% {transform: translateY(-100vh) rotate(45deg); opacity: 0;}
+}
 </style>
+
 </head>
 
 <body>
@@ -132,12 +181,17 @@
 <div id="yesCount" class="counter">Coming: 0</div>
 <div id="noCount" class="counter">Not Coming: 0</div>
 
-<div class="letter" onclick="openLetter()"></div>
+<div id="countdown"></div>
+
+<div class="envelope" onclick="openEnvelope()">
+    <div class="flap"></div>
+    <div class="letter"></div>
+</div>
 
 <div id="card" class="card">
     <h2>Karim & Mai</h2>
     <p>We are pleased to invite you for our engagement 💍</p>
-    <p><strong>Date:</strong> April 18</p>
+    <p><strong>Date:</strong> April 18, 2026</p>
     <p><strong>Location:</strong> Your Venue Here</p>
 
     <a href="https://maps.google.com" target="_blank">View Location</a>
@@ -152,15 +206,17 @@
 let yes = 0;
 let no = 0;
 
-function openLetter() {
-    document.querySelector('.letter').style.display = 'none';
-    document.getElementById('card').style.display = 'block';
+function openEnvelope() {
+    document.querySelector('.envelope').classList.add('open');
+    setTimeout(() => {
+        document.getElementById('card').style.display = 'block';
+    }, 800);
 }
 
 function coming() {
     yes++;
     document.getElementById('yesCount').innerText = "Coming: " + yes;
-    alert("We’re so happy you’ll join us ❤️");
+    alert("Can't wait to celebrate together ❤️");
 }
 
 function notComing() {
@@ -169,16 +225,31 @@ function notComing() {
     alert("You’ll be missed 💔");
 }
 
-/* Generate hearts */
+/* Countdown */
+const eventDate = new Date("April 18, 2026 00:00:00").getTime();
+
 setInterval(() => {
-    let heart = document.createElement("div");
+    const now = new Date().getTime();
+    const diff = eventDate - now;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / 1000 / 60) % 60);
+
+    document.getElementById("countdown").innerHTML =
+        "⏳ " + days + " days " + hours + " hrs " + minutes + " mins left";
+}, 1000);
+
+/* Hearts generator */
+setInterval(() => {
+    const heart = document.createElement("div");
     heart.className = "heart";
     heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (Math.random() * 5 + 5) + "s";
+    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
     document.body.appendChild(heart);
 
-    setTimeout(() => heart.remove(), 8000);
-}, 300);
+    setTimeout(() => heart.remove(), 6000);
+}, 200);
 </script>
 
 </body>
