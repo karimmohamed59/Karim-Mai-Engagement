@@ -1,1 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Karim & Mai Engagement</title>
+<style>
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: #fff0f5;
+        overflow-x: hidden;
+        text-align: center;
+    }
 
+    /* Floating Hearts */
+    .heart {
+        position: fixed;
+        width: 20px;
+        height: 20px;
+        background: red;
+        transform: rotate(45deg);
+        animation: float 8s linear infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: red;
+        border-radius: 50%;
+    }
+
+    .heart::before {
+        top: -10px;
+        left: 0;
+    }
+
+    .heart::after {
+        left: -10px;
+        top: 0;
+    }
+
+    @keyframes float {
+        0% {transform: translateY(100vh) rotate(45deg);}
+        100% {transform: translateY(-10vh) rotate(45deg);}
+    }
+
+    /* Counters */
+    .counter {
+        position: fixed;
+        top: 10px;
+        font-size: 20px;
+        font-weight: bold;
+        color: #d63384;
+    }
+
+    #yesCount { left: 20px; }
+    #noCount { right: 20px; }
+
+    /* Letter */
+    .letter {
+        margin-top: 150px;
+        width: 200px;
+        height: 120px;
+        background: #fff;
+        border: 2px solid #d63384;
+        cursor: pointer;
+        position: relative;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 10px;
+    }
+
+    .letter::before {
+        content: "💌 Click to Open";
+        position: absolute;
+        width: 100%;
+        top: 40%;
+        left: 0;
+        font-weight: bold;
+        color: #d63384;
+    }
+
+    /* Invitation Card */
+    .card {
+        display: none;
+        margin-top: 30px;
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        width: 80%;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+        from {opacity: 0; transform: scale(0.8);}
+        to {opacity: 1; transform: scale(1);}
+    }
+
+    button {
+        margin: 10px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .yes { background: #28a745; color: white; }
+    .no { background: #dc3545; color: white; }
+
+    a {
+        display: inline-block;
+        margin-top: 10px;
+        text-decoration: none;
+        color: white;
+        background: #007bff;
+        padding: 10px 15px;
+        border-radius: 20px;
+    }
+</style>
+</head>
+
+<body>
+
+<div id="yesCount" class="counter">Coming: 0</div>
+<div id="noCount" class="counter">Not Coming: 0</div>
+
+<div class="letter" onclick="openLetter()"></div>
+
+<div id="card" class="card">
+    <h2>Karim & Mai</h2>
+    <p>We are pleased to invite you for our engagement 💍</p>
+    <p><strong>Date:</strong> April 18</p>
+    <p><strong>Location:</strong> Your Venue Here</p>
+
+    <a href="https://maps.google.com" target="_blank">View Location</a>
+
+    <div>
+        <button class="yes" onclick="coming()">I am coming</button>
+        <button class="no" onclick="notComing()">Not coming</button>
+    </div>
+</div>
+
+<script>
+let yes = 0;
+let no = 0;
+
+function openLetter() {
+    document.querySelector('.letter').style.display = 'none';
+    document.getElementById('card').style.display = 'block';
+}
+
+function coming() {
+    yes++;
+    document.getElementById('yesCount').innerText = "Coming: " + yes;
+    alert("We’re so happy you’ll join us ❤️");
+}
+
+function notComing() {
+    no++;
+    document.getElementById('noCount').innerText = "Not Coming: " + no;
+    alert("You’ll be missed 💔");
+}
+
+/* Generate hearts */
+setInterval(() => {
+    let heart = document.createElement("div");
+    heart.className = "heart";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 5 + 5) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 8000);
+}, 300);
+</script>
+
+</body>
+</html>
